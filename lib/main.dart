@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_middle/src/MyFormValidation.dart';
+import 'package:flutter_app_middle/src/MyMethodChannel.dart';
 import 'package:flutter_app_middle/src/MyOrientation.dart';
 import 'package:flutter_app_middle/src/MySnackBar.dart';
 import 'package:flutter_app_middle/src/MySwipeToDismissState.dart';
@@ -95,7 +96,14 @@ class _HomeState extends State<Home> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => MtSwipeToDismiss()));
           },
-        )
+        ),
+        ListTile(
+          title: Text('MethodChannel'),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyMethodChannel()));
+          },
+        ),
       ],
     );
   }
