@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_middle/src/MyOrientation.dart';
 import 'package:flutter_app_middle/src/MySnackBar.dart';
+import 'package:flutter_app_middle/src/MyTabController.dart';
 import 'package:flutter_app_middle/src/animatedOpacity.dart';
 import 'package:flutter_app_middle/src/myanimatedContainer.dart';
 import 'package:flutter_app_middle/src/mydrawer.dart';
@@ -72,6 +73,13 @@ class _HomeState extends State<Home> {
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => MyOrientation()));
+          },
+        ),
+        ListTile(
+          title: Text('TabController'),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyTabController()));
           },
         )
       ],
