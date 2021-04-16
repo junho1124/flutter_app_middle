@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_middle/animatedOpacity.dart';
-import 'package:flutter_app_middle/myanimatedContainer.dart';
+import 'package:flutter_app_middle/src/animatedOpacity.dart';
+import 'package:flutter_app_middle/src/myanimatedContainer.dart';
+import 'package:flutter_app_middle/src/mydrawer.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,10 +16,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter Tutorial'),
-        ),
-        body: Home()),
+          appBar: AppBar(
+            title: Text('Flutter Tutorial'),
+          ),
+          body: Home()),
     );
   }
 }
@@ -38,17 +39,24 @@ class _HomeState extends State<Home> {
           title: Text('AnimatedContainer'),
           onTap: () {
             Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MyAnimatedContainer()));
+                MaterialPageRoute(builder: (context) => MyAnimatedContainer()));
           },
         ),
         ListTile(
           title: Text('AnimatedOpacity'),
           onTap: () {
             Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MyAnimatedOpacity()));
+                MaterialPageRoute(builder: (context) => MyAnimatedOpacity()));
+          },
+        ),
+        ListTile(
+          title: Text('Drawer'),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyDrawer()));
           },
         )
       ],
     );
-    }
+  }
 }
