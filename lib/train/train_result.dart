@@ -1,15 +1,15 @@
 import 'package:flutter_app_middle/train/realtime_arrival_list.dart';
 import 'error_message.dart';
 
-class TrainResult {
+class movieResult {
   ErrorMessage errorMessage;
   List<RealtimeArrivalList> realtimeArrivalList;
 
-  TrainResult({
+  movieResult({
       this.errorMessage, 
       this.realtimeArrivalList});
 
-  TrainResult.fromJson(dynamic json) {
+  movieResult.fromJson(dynamic json) {
     errorMessage = json["errorMessage"] != null ? ErrorMessage.fromJson(json["errorMessage"]) : null;
     if (json["realtimeArrivalList"] != null) {
       realtimeArrivalList = [];

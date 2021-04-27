@@ -5,8 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
-import 'package:flutter_app_middle/train/train_result.dart';
+import 'package:flutter_app_middle/movie/movie_result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:http/http.dart' as http;
@@ -14,11 +13,12 @@ import 'dart:convert';
 
 void main() {
     test('http 통신 테스트', () async {
-      var response = await http.get('http://swopenAPI.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/수원');
+      var uri = Uri.parse('http://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1');
+      var response = await http.get(uri);
       expect(response.statusCode, 200);
 
-      TrainResult result = TrainResult.fromJson(json.decode(response.body));
+      MovieResult result = MovieResult.fromJson(json.decode(response.body));
 
-      expect(result.errorMessage.status, 200);
+      expect(result.results[0].adult, false);
     });
 }

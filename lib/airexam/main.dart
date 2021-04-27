@@ -24,13 +24,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TrainResult _result;
+  AirResult _result;
 
-  Future<TrainResult> fetchData() async {
-    var response = await http.get(
-        'https://api.airvisual.com/v2/nearest_city?key=7d8906fb-ed70-4267-91f9-cd2011ac8277');
+  Future<AirResult> fetchData() async {
+    var uri = Uri.parse('https://api.airvisual.com/v2/nearest_city?key=7d8906fb-ed70-4267-91f9-cd2011ac8277');
+    var response = await http.get(uri);
 
-    TrainResult result = TrainResult.fromJson(json.decode(response.body));
+    AirResult result = AirResult.fromJson(json.decode(response.body));
 
     return result;
   }
@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
-  Color getColor(TrainResult result) {
+  Color getColor(AirResult result) {
     if (result.data.current.pollution.aqius <= 50) {
       return Colors.greenAccent;
     } else if (result.data.current.pollution.aqius <= 100) {
@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  String getString(TrainResult result) {
+  String getString(AirResult result) {
     if (result.data.current.pollution.aqius <= 50) {
       return '좋음';
     } else if (result.data.current.pollution.aqius <= 100) {

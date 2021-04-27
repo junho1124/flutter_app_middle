@@ -22,12 +22,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  TrainResult _result;
+  movieResult _result;
 
-  Future<TrainResult> fetchData() async {
-    var response = await http.get('http://swopenAPI.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/${_myController.text}');
+  Future<movieResult> fetchData() async {
+    var uri = Uri.parse('http://swopenAPI.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/${_myController.text}');
+    var response = await http.get(uri);
 
-    TrainResult result = TrainResult.fromJson(json.decode(response.body));
+    movieResult result = movieResult.fromJson(json.decode(response.body));
 
     return result;
   }

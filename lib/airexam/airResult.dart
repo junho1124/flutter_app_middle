@@ -1,10 +1,10 @@
-class TrainResult {
+class AirResult {
   String status;
   Data data;
 
-  TrainResult({this.status, this.data});
+  AirResult({this.status, this.data});
 
-  TrainResult.fromJson(Map<String, dynamic> json) {
+  AirResult.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
