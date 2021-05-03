@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_middle/movie/detailPage.dart';
-import 'package:flutter_app_middle/movie/movie_result.dart';
+import 'package:flutter_app_middle/movie/movie_provider.dart';
+import 'package:provider/provider.dart';
 import 'results.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 void main() => runApp(MyApp());
 
@@ -13,50 +12,37 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'movie',
       theme: ThemeData(primarySwatch: Colors.amber),
-      home: MyHomePage(),
+      home: MultiProvider(providers: [
+        ChangeNotifierProvider(create: (_) => MovieProvider())
+      ],
+      child: MyHomePage(),),
     );
   }
 }
 
+
 class MyHomePage extends StatefulWidget {
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends State<MyHomePage> {
-  List<Results> movies = [];
-  final List<Results> filteredItems = [];
-  final _controller = TextEditingController();
-
-  Future<MovieResult> fetchData() async {
-    var uri = Uri.parse(
-        'http://api.themoviedb.org/3/movie/upcoming?api_key=a64533e7ece6c72731da47c9c8bc691f&language=ko-KR&page=1');
-    var response = await http.get(uri);
-
-    MovieResult result = MovieResult.fromJson(json.decode(response.body));
-
-    return result;
-  }
+  TextEditingController _controller = TextEditingController(); //controller 는 굳이 provider 로 안 쓰는게 목적에 맞다고 한다...
 
   @override
-  void initState() {
+  void initState() { //TODO initState 안쓰고도 할 수 있는 방법 없나,,,,,
     super.initState();
 
-    fetchData().then((movieResult) {
+    context.read<MovieProvider>().fetchData().then((movieResult) {
       setState(() {
         for (int i = 0; i < movieResult.results.length; i++) {
-          movies.add(movieResult.results[i]);
+          context.read<MovieProvider>().movies.add(movieResult.results[i]);
         }
       });
     });
   }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,11 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
           TextField(
             controller: _controller,
             onChanged: (text) {
+              // context.read<MovieProvider>().filtering(text); TODO 왜 안되는지 알아보기
               setState(() {
-                filteredItems.clear();
-                for (int i = 0; i < movies.length; i++) {
-                  if (movies[i].title.contains(text)) {
-                    filteredItems.add(movies[i]);
+                context.read<MovieProvider>().filteredItems.clear();
+                for (int i = 0; i < context.read<MovieProvider>().movies.length; i++) {
+                  if (context.read<MovieProvider>().movies[i].title.contains(text)) {
+                    context.read<MovieProvider>().filteredItems.add(context.read<MovieProvider>().movies[i]);
                   }
                 }
               });
@@ -88,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisSpacing: 3,
                 crossAxisCount: 3,
                 childAspectRatio: 2 / 4,
-                children: _buildItems(movies, context)
+                children: _buildItems(context.read<MovieProvider>().movies, context)
             ),
           ),
         ],
@@ -101,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (_controller.text.isEmpty) {
     makeItems(movies, items, context);
     } else {
-      makeItems(filteredItems, items, context);
+      makeItems(context.read<MovieProvider>().filteredItems, items, context);
     }
     return items;
   }
