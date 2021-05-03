@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onTap: () {
           Navigator.push(
             context,
-          MaterialPageRoute(builder: (context) => MovieDetailPage(movies, i)));
+          MaterialPageRoute(builder: (context) => MovieDetailPage(movies[i])));
           },
           child: Card(
             shadowColor: Colors.blueGrey,

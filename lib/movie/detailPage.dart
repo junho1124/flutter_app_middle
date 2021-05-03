@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_middle/movie/results.dart';
 
 class MovieDetailPage extends StatelessWidget {
-  final List<Results> movies;
-  final int i;
+  final movies;
 
-  MovieDetailPage(this.movies, this.i);
+  MovieDetailPage(this.movies);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +12,7 @@ class MovieDetailPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          movies[i].title,
+          movies.title,
           style: TextStyle(),
         ),
       ),
@@ -23,15 +21,15 @@ class MovieDetailPage extends StatelessWidget {
         Column(
           children: [
             Text(
-              movies[i].title,
+              movies.title,
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             Text(
-              '\'${movies[i].originalTitle}\'',
+              '\'${movies.originalTitle}\'',
               style: TextStyle(fontSize: 20, color: Colors.blueGrey),
             ),
             Image.network(
-              'https://image.tmdb.org/t/p/w500/${movies[i].posterPath}',
+              'https://image.tmdb.org/t/p/w500/${movies.posterPath}',
               height: 500,
             ),
             SizedBox(
@@ -55,7 +53,7 @@ class MovieDetailPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '개봉일: ${movies[i].releaseDate}',
+                    '개봉일: ${movies.releaseDate}',
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -71,7 +69,7 @@ class MovieDetailPage extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              movies[i].voteCount.toString(),
+                              movies.voteCount.toString(),
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             ),
@@ -92,7 +90,7 @@ class MovieDetailPage extends StatelessWidget {
                       padding: EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Text(movies[i].voteAverage.toString(),
+                          Text(movies.voteAverage.toString(),
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold)),
                           Icon(
@@ -117,7 +115,7 @@ class MovieDetailPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    movies[i].overview,
+                    movies.overview,
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
